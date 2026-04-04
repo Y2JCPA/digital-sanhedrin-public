@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+:root {
+  --background: #1a1a2e;
+  --foreground: #f5f0e1;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-hebrew), "Frank Ruhl Libre", serif;
+}
+
+.seat-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: clamp(2.2rem, 3.3vw, 3.25rem);
+  aspect-ratio: 1/1;
+  border-radius: 9999px;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  background: #4a4a4a;
+  color: #f5f0e1;
+  display: grid;
+  place-items: center;
+  padding: 0.2rem;
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 400ms ease, background 400ms ease,
+    border-color 400ms ease;
+  box-shadow: 0 0 0 rgba(255, 215, 0, 0);
+  animation: seatFadeIn 620ms ease forwards;
+  opacity: 0;
+}
+
+.seat-node:hover {
+  transform: translate(-50%, -50%) scale(1.08);
+  background: #5a5a5a;
+  border-color: #ffd700;
+  box-shadow: 0 0 22px rgba(255, 215, 0, 0.55);
+}
+
+.seat-leadership {
+  background: #56440f;
+  border-color: #d4af37;
+}
+
+/* Active / speaking state */
+.seat-active {
+  background: #ffd700 !important;
+  border-color: #ffd700 !important;
+  color: #1a1a2e !important;
+  box-shadow: 0 0 24px rgba(255, 215, 0, 0.7), 0 0 48px rgba(255, 215, 0, 0.3) !important;
+  animation: seatFadeIn 620ms ease forwards, seatPulse 1s ease-in-out infinite !important;
+  z-index: 10;
+}
+
+/* Voted (neutral) state — has spoken but final result not yet revealed */
+.seat-voted {
+  background: #6b5c2a !important;
+  border-color: #d4af37 !important;
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.25) !important;
+}
+
+/* Majority (green) state — revealed after final tally */
+.seat-majority {
+  background: #2d6a4f !important;
+  border-color: #4ade80 !important;
+  box-shadow: 0 0 12px rgba(74, 222, 128, 0.3) !important;
+}
+
+/* Minority (red) state */
+.seat-minority {
+  background: #9b2226 !important;
+  border-color: #f87171 !important;
+  box-shadow: 0 0 12px rgba(248, 113, 113, 0.3) !important;
+}
+
+.seat-text {
+  font-size: clamp(0.52rem, 0.85vw, 0.72rem);
+  line-height: 1.05;
+  font-weight: 700;
+}
+
+@keyframes seatFadeIn {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.7);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes seatPulse {
+  0%, 100% {
+    box-shadow: 0 0 24px rgba(255, 215, 0, 0.7), 0 0 48px rgba(255, 215, 0, 0.3);
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    box-shadow: 0 0 36px rgba(255, 215, 0, 0.9), 0 0 60px rgba(255, 215, 0, 0.5);
+    transform: translate(-50%, -50%) scale(1.12);
+  }
+}
