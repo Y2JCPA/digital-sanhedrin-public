@@ -2,7 +2,7 @@
 
 import { useState, useEffect, ReactNode } from "react";
 
-const PASSWORD = "REDACTED";
+const PASSWORD = process.env.NEXT_PUBLIC_AUTH_PASSWORD || "";
 const STORAGE_KEY = "sanhedrin-auth";
 
 export default function AuthGate({ children }: { children: ReactNode }) {
